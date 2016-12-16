@@ -36,6 +36,9 @@
 *~
 #*#
 
+# Tag file (plugin atom symbol-gen)
+.tags
+
 # Files to test
 src/*
 include/*

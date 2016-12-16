@@ -5,7 +5,7 @@
 ** Login   <paul.laffitte@epitech.eu>
 **
 ** Started on  Fri Dec 16 13:00:40 2016 Paul Laffitte
-** Last update Fri Dec 16 16:06:56 2016 Paul Laffitte
+** Last update Fri Dec 16 17:07:54 2016 Paul Laffitte
 */
 
 #include <SFML/System.h>
@@ -103,8 +103,8 @@ int		tests_raycast()
   map = get_map(map_size);
   set_map(map);
   show_map(map, map_size);
-  pos.x = 1;
-  pos.y = 3;
+  pos.x = 1.2;
+  pos.y = 3.7;
   test_raycast(pos, 0, (int**)map, map_size);
   test_raycast(pos, 90, (int**)map, map_size);
   test_raycast(pos, 180, (int**)map, map_size);
