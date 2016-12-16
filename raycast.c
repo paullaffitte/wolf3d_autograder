@@ -5,7 +5,7 @@
 ** Login   <paul.laffitte@epitech.eu>
 **
 ** Started on  Fri Dec 16 13:00:40 2016 Paul Laffitte
-** Last update Fri Dec 16 17:16:39 2016 Paul Laffitte
+** Last update Fri Dec 16 17:47:00 2016 Paul Laffitte
 */
 
 #include <SFML/System.h>
@@ -87,7 +87,7 @@ static float	test_raycast(sfVector2f pos, float direction, int **map,
   float		distance;
 
   distance = raycast(pos, direction, map, map_size);
-  printf("position = (%6.2f, %6.2f), direction = %6.2f => %6.2f\n",
+  printf("position = (%6.2f, %6.2f), direction = %6.2f° => %6.2f\n",
 	 pos.x, pos.y, direction, distance);
   return (0);
 }

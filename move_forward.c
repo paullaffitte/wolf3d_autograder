@@ -5,7 +5,7 @@
 ** Login   <paul.laffitte@epitech.eu>
 **
 ** Started on  Fri Dec 16 12:58:45 2016 Paul Laffitte
-** Last update Fri Dec 16 13:00:20 2016 Paul Laffitte
+** Last update Fri Dec 16 17:48:05 2016 Paul Laffitte
 */
 
 #include <stdio.h>
@@ -16,10 +16,11 @@ sfVector2f	move_forward(sfVector2f pos, float direction, float distance);
 static int	test_move_forward(sfVector2f pos,
 				  float direction, float distance)
 {
-  printf("(%8.2f, %8.2f) => ", pos.x, pos.y);
-  pos = move_forward(pos, direction, distance);
-  printf("(%8.2f, %8.2f) with : direction = %8.2f°, distance = %8.2f\n",
+  printf("pos = (%8.2f, %8.2f), direction = %8.2f°, distance = %8.2f => ",
 	 pos.x, pos.y, direction, distance);
+  pos = move_forward(pos, direction, distance);
+  printf("(%8.2f, %8.2f)\n",
+	 pos.x, pos.y);
 return (0);
 }
 
