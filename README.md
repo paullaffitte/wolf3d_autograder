@@ -1,5 +1,5 @@
 # Wolf3d Autograder
-[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE.md)
 
 Units tests for the Epitech project Wolf3d
 
