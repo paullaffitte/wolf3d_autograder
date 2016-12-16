@@ -1,5 +1,6 @@
 # Wolf3d Autograder
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+
 Units tests for the Epitech project Wolf3d
 
 To use this autograder, create the directory src/, place your sources inside, then type ./autograder.sh to launch it.
