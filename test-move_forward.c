@@ -23,34 +23,61 @@
 */
 
 #include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <time.h>
 #include <SFML/System.h>
+#include "graphic.h"
+#define NB_TEST 1000
 
 sfVector2f	move_forward(sfVector2f pos, float direction, float distance);
+
+static void	print_info_test(sfVector2f *from, sfVector2f *to,
+				  float direction, float distance)
+{
+  printf("pos = (%8.2f, %8.2f), direction = %8.2f°, distance = %8.2f => ",
+	 from->x, from->y, direction, distance);
+  printf("(%8.2f, %8.2f)\n", to->x, to->y);
+}
 
 static int	test_move_forward(sfVector2f pos,
 				  float direction, float distance)
 {
-  printf("pos = (%8.2f, %8.2f), direction = %8.2f°, distance = %8.2f => ",
-	 pos.x, pos.y, direction, distance);
-  pos = move_forward(pos, direction, distance);
-  printf("(%8.2f, %8.2f)\n",
-	 pos.x, pos.y);
+  sfVector2f	pos_test;
+  sfVector2f	to;
+  sfVector2f	to_test;
+
+  _cpy_vector2f(&pos_test, &pos);
+  to = move_forward(pos, direction, distance);
+  to_test = _move_forward(pos_test, direction, distance);
+  if (to.x != to_test.x || to.y != to_test.y)
+    {
+      write(1, "Output differs (your output first) :\n", 37);
+      print_info_test(&pos, &to, direction, distance);
+      print_info_test(&pos_test, &to_test, direction, distance);
+      write(1, "\n", 1);
+      return (1);
+    }
 return (0);
 }
 
 int		tests_move_forward()
 {
   sfVector2f	pos;
+  int		i;
+  int		errors;
 
-  pos.x = 10;
-  pos.y = 50;
-  test_move_forward(pos, 0, 100);
-  test_move_forward(pos, 90, 100);
-  test_move_forward(pos, 180, 100);
-  test_move_forward(pos, 270, 100);
-  test_move_forward(pos, 360, 100);
-  test_move_forward(pos, 45, 100);
-  test_move_forward(pos, 33, 100);
-  test_move_forward(pos, 836, 100);
+  i = 0;
+  pos.x = 0;
+  pos.y = 0;
+  errors = test_move_forward(pos, 0, 0);
+  while (++i < NB_TEST)
+    {
+      pos.x = rand() % 1000 - 500;
+      pos.y = rand() % 1000 - 500;
+      errors += test_move_forward(pos, rand() % 1000 - 500,
+				  rand() % 1000 - 500);
+    }
+  printf("Random tests : %d%%\n", (NB_TEST - errors) * 100 / NB_TEST);
   return (0);
 }
