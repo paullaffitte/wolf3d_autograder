@@ -1,4 +1,6 @@
 #!/bin/bash
-gcc autograder.c test-move_forward.c test-raycast.c free_raycast.c src/*.c -W -Wall -Werror -lc_graph_prog -lm -lgraph -o autograder -g
+rm diffs -rf
+mkdir diffs
+gcc tests/autograder.c tests/test-put_pixel.c tests/test-draw_line.c tests/test-move_forward.c tests/test-raycast.c tests/free_raycast.c src/*.c -W -Wall -Werror -lc_graph_prog -lm -lgraph -o autograder -g
 valgrind ./autograder
 rm autograder

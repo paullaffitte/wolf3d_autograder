@@ -23,10 +23,18 @@
 */
 
 #ifndef AUTOGRADER_H_
-#define AUTOGRADER_H_
+# define AUTOGRADER_H_
 
-typedef int	t_test_func();
-int		tests_move_forward();
+# define NB_TEST 1000
+# define SIZE 30
+# define OFFSET (SIZE / 10)
+# define RAND_POS (rand() % (SIZE + OFFSET * 2 + 1) - OFFSET)
+
+typedef int	t_test_func(int n);
+
+int		test_put_pixel(int n);
+int		test_draw_line(int n);
+int		test_move_forward(int n);
 int		tests_raycast();
 
 #endif /* !AUTOGRADER_H_ */

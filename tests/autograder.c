@@ -27,17 +27,28 @@
 #include <SFML/System.h>
 #include "autograder.h"
 
-int		launch_test(char *name, t_test_func test)
+void		launch_test(char *name, t_test_func test)
 {
-  printf("--------------------------------------\n===== TEST: %-20s =====\n\
---------------------------------------\n\n", name);
-  test();
-  printf("\n");
-  return (0);
+  int			i;
+  int			errors;
+
+  printf("--------------------------------------\n");
+  printf("===== TEST: %-20s =====\n", name);
+  printf("--------------------------------------\n\n");
+  i = 0;
+  errors = 0;
+  while (++i <= NB_TEST)
+    errors += test(i);
+  printf("Random tests : %d%%\n\n", (NB_TEST - errors) * 100 / NB_TEST);
 }
 
 int		main()
 {
-  launch_test("Move Forward", &tests_move_forward);
-  launch_test("Raycast", &tests_raycast);
+  launch_test("Put Pixel", &test_put_pixel);
+  launch_test("Draw Line", &test_draw_line);
+  launch_test("Move Forward", &test_move_forward);
+  printf("--------------------------------------\n");
+  printf("===== TEST: Raycast              =====\n");
+  printf("--------------------------------------\n\n");
+  tests_raycast();
 }

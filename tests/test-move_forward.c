@@ -27,8 +27,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include <SFML/System.h>
+#include "autograder.h"
 #include "graphic.h"
-#define NB_TEST 1000
 
 sfVector2f	move_forward(sfVector2f pos, float direction, float distance);
 
@@ -40,13 +40,19 @@ static void	print_info_test(sfVector2f *from, sfVector2f *to,
   printf("(%8.2f, %8.2f)\n", to->x, to->y);
 }
 
-static int	test_move_forward(sfVector2f pos,
-				  float direction, float distance)
+int		test_move_forward(int n)
 {
+  int		direction;
+  int		distance;
+  sfVector2f	pos;
   sfVector2f	pos_test;
   sfVector2f	to;
   sfVector2f	to_test;
 
+  (void)n;
+  direction = rand() % 1000 - 500;
+  distance = rand() % 1000 - 500;
+  _init_vector2f(&pos, rand() % 1000 - 500, rand() % 1000 - 500);
   _cpy_vector2f(&pos_test, &pos);
   to = move_forward(pos, direction, distance);
   to_test = _move_forward(pos_test, direction, distance);
@@ -59,25 +65,4 @@ static int	test_move_forward(sfVector2f pos,
       return (1);
     }
 return (0);
-}
-
-int		tests_move_forward()
-{
-  sfVector2f	pos;
-  int		i;
-  int		errors;
-
-  i = 0;
-  pos.x = 0;
-  pos.y = 0;
-  errors = test_move_forward(pos, 0, 0);
-  while (++i < NB_TEST)
-    {
-      pos.x = rand() % 1000 - 500;
-      pos.y = rand() % 1000 - 500;
-      errors += test_move_forward(pos, rand() % 1000 - 500,
-				  rand() % 1000 - 500);
-    }
-  printf("Random tests : %d%%\n", (NB_TEST - errors) * 100 / NB_TEST);
-  return (0);
 }

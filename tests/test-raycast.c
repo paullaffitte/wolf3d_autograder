@@ -29,7 +29,7 @@
 
 float		raycast(sfVector2f pos, float direction, int **map,
 			sfVector2i map_size);
-void	free_map(int **map, sfVector2i map_size);
+void		free_map(int **map, sfVector2i map_size);
 
 static void	show_map(int **map, sfVector2i map_size)
 {
