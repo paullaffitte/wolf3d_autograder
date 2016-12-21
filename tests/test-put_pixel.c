@@ -78,7 +78,7 @@ int			test_put_pixel(int n)
   _my_put_pixel(fb_test, x, y, color);
   if (_my_framebuffer_cmp(fb, fb_test))
     {
-      write(1, "Output differs (see diffs folder)\n", 34);
+      printf("%04d-- Output differs (see diffs folder)\n", n);
       fb_differs(fb, fb_test, n, "my_put_pixel");
       return (1);
     }

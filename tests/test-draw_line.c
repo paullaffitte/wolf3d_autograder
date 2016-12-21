@@ -24,6 +24,7 @@
 
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <time.h>
 #include "autograder.h"
 #include "graphic.h"
@@ -52,7 +53,7 @@ int			test_draw_line(int n)
   _my_draw_line(fb_test, from, to, color);
   if (_my_framebuffer_cmp(fb, fb_test))
     {
-      write(1, "Output differs (see diffs folder)\n", 34);
+      printf("%04d-- Output may differs (see diffs folder)\n", n);
       fb_differs(fb, fb_test, n, "my_put_pixel");
       return (1);
     }

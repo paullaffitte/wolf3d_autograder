@@ -58,7 +58,7 @@ int		test_move_forward(int n)
   to_test = _move_forward(pos_test, direction, distance);
   if (to.x != to_test.x || to.y != to_test.y)
     {
-      write(1, "Output differs (your output first) :\n", 37);
+      printf("%04d-- Output differs (your output first)\n", n);
       print_info_test(&pos, &to, direction, distance);
       print_info_test(&pos_test, &to_test, direction, distance);
       write(1, "\n", 1);
