@@ -51,6 +51,9 @@ void			_my_put_pixel(t_my_framebuffer *framebuffer,
 void			_my_draw_line(t_my_framebuffer *framebuffer,
 				      sfVector2i from, sfVector2i to,
 				      sfColor color);
+void			_my_draw_line2(t_my_framebuffer *framebuffer,
+				       sfVector2i from, sfVector2i to,
+				       sfColor color);
 sfVector2i		_my_parallel_projection(sfVector3f pos3d,
 						float angle);
 sfVector2i		_my_isometric_projection(sfVector3f pos3d);

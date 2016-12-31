@@ -26,7 +26,6 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <time.h>
 #include "autograder.h"
 #include "graphic.h"
 #define RAND256 (rand() % 256)
@@ -49,6 +48,10 @@ void			fb_differs(t_my_framebuffer *fb,
   asprintf(&name_test, "diffs/%s_%04d_mouli.png", test, n);
   sfImage_saveToFile(image, name);
   sfImage_saveToFile(image_test, name_test);
+  free(name);
+  free(name_test);
+  sfImage_destroy(image);
+  sfImage_destroy(image_test);
 }
 
 void			init_graphic_test(t_my_framebuffer **fb,

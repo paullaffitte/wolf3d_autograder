@@ -26,6 +26,8 @@
 #include <unistd.h>
 #include <SFML/System.h>
 #include "autograder.h"
+#include <stdlib.h>
+#include <time.h>
 
 void		launch_test(char *name, t_test_func test)
 {
@@ -44,11 +46,9 @@ void		launch_test(char *name, t_test_func test)
 
 int		main()
 {
+  srand(time(NULL));
   launch_test("Put Pixel", &test_put_pixel);
   launch_test("Draw Line", &test_draw_line);
   launch_test("Move Forward", &test_move_forward);
-  printf("--------------------------------------\n");
-  printf("===== TEST: Raycast              =====\n");
-  printf("--------------------------------------\n\n");
-  tests_raycast();
+  launch_test("Raycast", &test_raycast);
 }

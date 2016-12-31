@@ -25,16 +25,21 @@
 #ifndef AUTOGRADER_H_
 # define AUTOGRADER_H_
 
-# define NB_TEST 1000
+# include <SFML/Graphics.h>
+
+# define NB_TEST 100
 # define SIZE 30
 # define OFFSET (SIZE / 10)
 # define RAND_POS (rand() % (SIZE + OFFSET * 2 + 1) - OFFSET)
 
 typedef int	t_test_func(int n);
+typedef void	t_draw_line(void *framebuffer,
+			    sfVector2i from, sfVector2i to,
+			    sfColor color);
 
 int		test_put_pixel(int n);
 int		test_draw_line(int n);
 int		test_move_forward(int n);
-int		tests_raycast();
+int		test_raycast(int n);
 
 #endif /* !AUTOGRADER_H_ */

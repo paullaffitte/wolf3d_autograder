@@ -25,7 +25,6 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <time.h>
 #include <SFML/System.h>
 #include "autograder.h"
 #include "graphic.h"

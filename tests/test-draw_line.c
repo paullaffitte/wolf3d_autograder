@@ -22,10 +22,10 @@
 ** SOFTWARE.
 */
 
+#define _GNU_SOURCE
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <time.h>
 #include "autograder.h"
 #include "graphic.h"
 
@@ -38,26 +38,55 @@ void			my_draw_line(t_my_framebuffer *framebuffer,
 				     sfVector2i from, sfVector2i to,
 				     sfColor color);
 
-int			test_draw_line(int n)
+static void		remove_unwanted(int n, char *test)
+{
+  char			*name;
+  char			*name_test;
+
+  asprintf(&name, "diffs/%s_%04d.png", test, n);
+  asprintf(&name_test, "diffs/%s_%04d_mouli.png", test, n);
+  remove(name);
+  remove(name_test);
+  free(name);
+  free(name_test);
+}
+
+static int		test_draw_line_part(int n,
+					    sfVector2i from, sfVector2i to,
+					    t_draw_line *draw_line)
 {
   static sfColor	color = {255, 255, 255, 255};
   t_my_framebuffer	*fb;
   t_my_framebuffer	*fb_test;
-  sfVector2i		from;
-  sfVector2i		to;
+  int			result;
 
+  result = 0;
   init_graphic_test(&fb, &fb_test);
-  _init_vector2i(&from, RAND_POS, RAND_POS);
-  _init_vector2i(&to, RAND_POS, RAND_POS);
   my_draw_line(fb, from, to, color);
-  _my_draw_line(fb_test, from, to, color);
+  draw_line(fb_test, from, to, color);
   if (_my_framebuffer_cmp(fb, fb_test))
     {
-      printf("%04d-- Output may differs (see diffs folder)\n", n);
-      fb_differs(fb, fb_test, n, "my_put_pixel");
-      return (1);
+      fb_differs(fb, fb_test, n, "my_draw_line");
+      result = 1;
     }
   _my_framebuffer_destroy(fb);
   _my_framebuffer_destroy(fb_test);
+  return (result);
+}
+
+int			test_draw_line(int n)
+{
+  sfVector2i		from;
+  sfVector2i		to;
+
+  _init_vector2i(&from, RAND_POS, RAND_POS);
+  _init_vector2i(&to, RAND_POS, RAND_POS);
+  if (test_draw_line_part(n, from, to, (t_draw_line*)&_my_draw_line2)
+      && test_draw_line_part(n, from, to, (t_draw_line*)&_my_draw_line))
+    {
+      printf("%04d-- Output may differs (see diffs folder)\n", n);
+      return (1);
+    }
+  remove_unwanted(n, "my_draw_line");
   return (0);
 }
