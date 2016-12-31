@@ -36,3 +36,4 @@
 # Files to test
 src/*
 include/*
+inc/*
