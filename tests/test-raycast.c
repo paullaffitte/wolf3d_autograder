@@ -30,7 +30,7 @@
 
 float		raycast(sfVector2f pos, float direction, int **map,
 			sfVector2i map_size);
-float		_raycast(sfVector2f pos, float direction, int **map,
+sfVector3f	_raycast(sfVector2f pos, float direction, int **map,
 			 sfVector2i map_size);
 void		free_map(int **map, sfVector2i map_size);
 
@@ -89,13 +89,13 @@ static void	set_map(int **map, sfVector2i map_size)
     }
 }
 
-static int	check_result(int n, float distance, float distance_test)
+static int	check_result(int n, sfVector3f *result_test, float distance)
 {
-  if (distance != distance_test)
+  if (result_test->z - distance > 0.01 || result_test->z - distance < -0.01)
     {
       printf("%04d-- Output differs\n", n);
-      printf("expected: %8.2f, had: %8.2f\n",
-	     distance_test, distance);
+      printf("expected: %8.2f, had: %8.2f\n", result_test->z, distance);
+      printf("cast point: (%4.2f, %4.2f)\n", result_test->x, result_test->y);
       return (1);
     }
   return (0);
@@ -107,21 +107,19 @@ int		test_raycast(int n)
   sfVector2i	map_size;
   int		**map;
   float		dir;
+  sfVector3f	result_test;
   float		distance;
-  float		distance_test;
 
   map = get_map(&map_size);
   set_map(map, map_size);
   pos.x = (float)rand() / (RAND_MAX / map_size.x);
   pos.y = (float)rand() / (RAND_MAX / map_size.y);
   dir = rand() % 1000 - 500;
-  distance = roundf(raycast(pos, dir,
-			    (int**)map, map_size) * 100) / 100;
-  distance_test = roundf(_raycast(pos, dir,
-				  (int**)map, map_size) * 100) / 100;
-  if (check_result(n, distance, distance_test))
+  result_test = _raycast(pos, dir, (int**)map, map_size);
+  distance = raycast(pos, dir, (int**)map, map_size);
+  if (check_result(n, &result_test, distance))
     {
-      printf("pos = (%8.2f, %8.2f), dir = %8.2f°\n\n", pos.x, pos.y, dir);
+      printf("player = (%8.2f, %8.2f), dir = %8.2f°\n\n", pos.x, pos.y, dir);
       show_map(map, map_size);
       return (1);
     }
