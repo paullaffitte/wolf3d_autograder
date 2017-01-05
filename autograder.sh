@@ -24,6 +24,13 @@
 
 rm diffs -rf
 mkdir diffs
-gcc tests/autograder.c tests/test-put_pixel.c tests/test-draw_line.c tests/test-move_forward.c tests/test-raycast.c tests/free_raycast.c src/my_put_pixel.c src/my_draw_line.c src/move_forward.c src/raycast.c src/raycast_part2.c -W -Wall -Werror -I./include -I./inc -I./ -L./ -lc_graph_prog -lm -lgraph -o autograder -g
+compilation="tests/autograder.c tests/test-put_pixel.c tests/test-draw_line.c tests/test-move_forward.c tests/test-raycast.c tests/free_raycast.c src/my_put_pixel.c src/my_draw_line.c src/move_forward.c src/raycast.c -W -Wall -Werror -I./include -I./inc -I./ -L./ -lc_graph_prog -lm -lgraph -o autograder -g"
+gcc $compilation src/raycast_part2.c
+if [ ! -e autograder ]
+then
+        echo -e "\033[33m-- Try compilation without raycats_part2.c\033[0m"
+        gcc $compilation
+fi
+
 valgrind ./autograder
 rm autograder
